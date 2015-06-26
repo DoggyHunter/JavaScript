@@ -1,0 +1,1 @@
+function RandomBackground(imgs){document.body.style.backgroundImage="url("+imgs[Math.floor(Math.random()*imgs.length)]+")";}
