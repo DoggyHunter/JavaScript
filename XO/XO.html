@@ -1,0 +1,125 @@
+<html>
+	<head>
+		<title>Крестики-Нолики</title>
+		<meta charset="UTF-8" />
+		<style>
+			button {
+				height:32px;
+				width:32px;
+			}
+		</style>
+	</head>
+	<body>
+		Новая игра<br>
+		<button onclick="newGame(1)">X</button>&nbsp;
+		<button onclick="newGame(0)">O</button>&nbsp;
+		<button onclick="newGame(-1)">R</button><br>
+		Крестики: <div id="sX">0</div><br>
+		Нолики: <div id="sO">0</div>
+		
+		<br><hr><br>
+		<button id="b11" onclick="setS(1,1)"></button>
+		<button id="b12" onclick="setS(1,2)"></button>
+		<button id="b13" onclick="setS(1,3)"></button><br>
+		<button id="b21" onclick="setS(2,1)"></button>
+		<button id="b22" onclick="setS(2,2)"></button>
+		<button id="b23" onclick="setS(2,3)"></button><br>
+		<button id="b31" onclick="setS(3,1)"></button>
+		<button id="b32" onclick="setS(3,2)"></button>
+		<button id="b33" onclick="setS(3,3)"></button><br><hr><br>
+		<div id="current">Начни игру!</div>
+		
+		<script>
+			var current = "_";
+			var scoresX = 0;
+			var scoresO = 0;
+			var win = true;
+			function s(str) {
+				return document.getElementById(str);
+			}
+			
+			function setS(y,x) {
+				if(!win) {
+					var l = s("b"+y+x);
+					if(l.innerHTML == "" && current!="_") { 
+						l.innerHTML = current;
+						if(current=="O")
+							current = "X";
+						else
+							current = "O";
+						s("current").innerHTML = "Теперь ходят "+current;
+						checkWin();
+					}
+				}
+			}
+			
+			function checkWin() {
+				var m = [s("b11").innerHTML, s("b12").innerHTML, s("b13").innerHTML,
+						s("b21").innerHTML, s("b22").innerHTML, s("b23").innerHTML,
+						s("b31").innerHTML, s("b32").innerHTML, s("b33").innerHTML];
+				if(m[0]=="X" && m[1]=="X" && m[2]=="X" ||
+					m[3]=="X" && m[4]=="X" && m[5]=="X" ||
+					m[6]=="X" && m[7]=="X" && m[8]=="X" ||
+					m[0]=="X" && m[3]=="X" && m[6]=="X" ||
+					m[1]=="X" && m[4]=="X" && m[7]=="X" ||
+					m[2]=="X" && m[5]=="X" && m[8]=="X" ||
+					m[0]=="X" && m[4]=="X" && m[8]=="X" ||
+					m[2]=="X" && m[4]=="X" && m[6]=="X") {
+						win = true;
+						addScore(1);
+						current = "_";
+						s("current").innerHTML = "Крестики выйграли!";
+					}
+					else if(m[0]=="O" && m[1]=="O" && m[2]=="O" ||
+					m[3]=="O" && m[4]=="O" && m[5]=="O" ||
+					m[6]=="O" && m[7]=="O" && m[8]=="O" ||
+					m[0]=="O" && m[3]=="O" && m[6]=="O" ||
+					m[1]=="O" && m[4]=="O" && m[7]=="O" ||
+					m[2]=="O" && m[5]=="O" && m[8]=="O" ||
+					m[0]=="O" && m[4]=="O" && m[8]=="O" ||
+					m[2]=="O" && m[4]=="O" && m[6]=="O") {
+						win = true;
+						addScore(0);
+						current = "_";
+						s("current").innerHTML = "Нолики выйграли!";
+					}
+			}
+			
+			function addScore(p) {
+				if(p==0) {
+					scoresO++;
+					s("sO").innerHTML = scoresY;
+				}
+				else {
+					scoresX++;
+					s("sX").innerHTML = scoresX;
+				}
+			}
+			
+			function resetScores(){
+				scoresX = 0;
+				scoresO = 0;
+				s("sX").innerHTML = "0";
+				s("sO").innerHTML = "0";
+			}
+			
+			function newGame(x) {
+				win = false;
+				s("b11").innerHTML = "";
+				s("b12").innerHTML = "";
+				s("b13").innerHTML = "";
+				s("b21").innerHTML = "";
+				s("b22").innerHTML = "";
+				s("b23").innerHTML = "";
+				s("b31").innerHTML = "";
+				s("b32").innerHTML = "";
+				s("b33").innerHTML = "";
+				if(x==0) current = "O";
+				else if(x==1) current = "X";
+				else if(x==-1) (Math.round(Math.random()) == 0)?current = "O":current = "X";
+				s("current").innerHTML = "Игра началась, ходят "+current;
+			}
+		</script>
+		
+	</body>
+</html>
