@@ -1,3 +1,9 @@
+/**************************************************
+*    .OBJ Parser to model arrays                  *
+*    Created by DoggyXomaX                        *
+*    Under GNU GENERAL PUBLIC LICENSE             *
+**************************************************/
+
 function readObj(data) {
 	var model = new Array(),
 		modelPoly = new Array();
